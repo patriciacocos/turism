@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+ {% block stylesheets%}
+     <meta charset="utf-8">
+     <title>Monumente Istorice</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <meta name="description" content="" />
+          {{ parent() }}
+     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet" />
+     <link href="{{ asset('css/fancybox/jquery.fancybox.css')}}" rel="stylesheet">
+     <link href="{{ asset('css/flexslider.css')}}" rel="stylesheet" />
+     <link href="{{ asset('css/style.css')}}" rel="stylesheet" />
+     <link href="={{ asset('css/monumente.css') }}" rel="stylesheet"/>
+     <link
+         rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+     />
+ {% endblock %}
+
+{% block body %}
+    {% include 'global/menu.html.twig' %}
+
+    <br><br><br><br><br><br><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 text-center" >
+            <div class="panel" >
+                <div class="panel-body" id="p2" >
+                    <h1>Despre</h1>
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active" >
+                            <strong>Nume: {{ monument.nume}}</strong> <br>
+                            <strong>Catelgorie: {{ monument.categorie}}</strong> <br>
+                            <strong>Adresa: {{ monument.adresa }}</strong> <br>
+                            <strong>Ora deschidere: {{ monument.oraDeschidere|date('H:i:s') }}</strong><br>
+                            <strong>Ora inchidere: {{ monument.oraInchidere|date('H:i:s') }}</strong><br>
+                            <strong>Pret bilet: {{ monument.pretBilet }} Kč</strong> <br>
+                            <strong>An contructie: {{ monument.anConstructie }}</strong>
+                        </div>
+                    </div>
+                    <div class="booking-cta text-center">
+                        <h1>Fă-ți o rezervare</h1>
+                    </div>
+                    <div class="booking-form">
+                        {{ form_errors(form) }}
+                        {{ form_start(form) }}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <span class="form-label">Nume</span>
+                                    {{ form_widget(form.numeUser) }}
+                                    {{ form_errors(form.numeUser) }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span class="form-label">Numar locuri</span>
+                                     {{ form_widget(form.nrLocuri) }}
+                                     {{ form_errors(form.nrLocuri) }}
+                                </div>
+                            </div>
+                            <div class="col-md-3 " style="inline-size: inherit">
+                                <div class="form-group form-inline">
+                                    <span class="form-label">Ora</span>
+                                    {{ form_widget(form.oraRezervarii) }}
+                                    {{ form_errors(form.oraRezervarii) }}
+                                </div>
+                            </div>
+                            <div class="col-md-12" >
+                                <div class="form-btn" >
+                                    {{ form_widget(form.rezerva) }}
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                        {% if success is defined %}
+                            <div class="bg-success">
+                                {{ success }}<br>
+                                {{ app.user.id }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    {% for image in monument.images %}
+                        <div class="swiper-slide text-center">
+                            <img src="{{ asset(image.path) }}" style="max-height: 600px;" >
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block end_javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+{% endblock %}

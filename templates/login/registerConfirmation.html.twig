@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+ {% block stylesheets %}
+     {{ parent() }}
+
+     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+ {% endblock %}
+
+{% block body %}
+
+    {% if message is defined %}
+        <div class="text-white" style="color: white" >{{ message }}</div>
+        <div>
+            <a href="{{ path('app_login') }}" style="color: white">Da click aici ca sa te loghezi!</a>
+        </div>
+    {% endif %}
+
+{% endblock %}

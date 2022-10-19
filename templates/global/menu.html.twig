@@ -1,0 +1,37 @@
+<header>
+    <div class="navbar navbar-default navbar-static-top" style="background: black">
+        <div class="container">
+            <div class="navbar-header" >
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" >
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('app_home_page') }}"><img src="{{ asset('img/rsz_ohzmh87i_400x400.jpg') }}" alt="logo"/></a>
+            </div>
+            <div class="navbar-collapse collapse ">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{{ path('app_home_page') }}">Home</a></li>
+                    <li><a href="{{ path('app_monuments_page') }}">MONUMENTE ISTORICE </a></li>
+                    <li><a href="{{ path('app_art_page') }}">ARTA SI CULTURA</a></li>
+                    <li><a href="{{ path('app_hotels_page') }}">CAZARE</a></li>
+                    <li><a href={{ path('app_restaurant_page') }}>MANCARE SI BAUTURA</a></li>
+                    <li><a href={{ path('app_contact_page') }}>CONTACT</a></li>
+                    {% if app.user %}
+                        <li>
+                            <a href="{{ path('app_profile') }}">
+                                <i
+                                    class="fa fa-user fa-3x"
+                                    style=" cursor: pointer "
+                                ></i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li><a href={{ path('app_login') }}>LOGIN</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

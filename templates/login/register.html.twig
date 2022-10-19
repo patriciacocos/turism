@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+ {% block stylesheets %}
+     {{ parent() }}
+
+     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+ {% endblock %}
+
+{% block body %}
+    {% if message is defined %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <div id="container">
+        <h1>Register</h1>
+
+        <form action="{{ path('app_register') }}" method="post">
+            <input type="text" name="_nume" placeholder="Nume">
+            <input type="text" name="_prenume" placeholder="Prenume">
+            <input type="email" name="_email" placeholder="E-mail" required>
+            <input type="password" name="_parola" placeholder="Password" required>
+            <button type="submit">register</button>
+        </form>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+ {% block stylesheets%}
+     <meta charset="utf-8">
+     <title>Cazare</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <meta name="description" content="" />
+     {{ parent() }}
+     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet" />
+     <link href="{{ asset('css/fancybox/jquery.fancybox.css')}}" rel="stylesheet">
+     <link href="{{ asset('css/flexslider.css')}}" rel="stylesheet" />
+     <link href="{{ asset('css/style.css')}}" rel="stylesheet" />
+     <link href="={{ asset('css/monumente.css') }}" rel="stylesheet"/>
+     <link
+         rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+     />
+     <style>
+         body {
+             background-image: url({{ asset(hotel.images[0].getPath()) }});
+             background-repeat: no-repeat;
+             background-attachment: fixed;
+             background-size: cover;
+         }
+     </style>
+ {% endblock %}
+
+{% block body  %}
+    {% include 'global/menu.html.twig' %}
+
+    <br><br><br><br><br><br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center" >
+                <div class="panel" >
+                    <div class="panel-body" id="p2" >
+                        <h1>Despre</h1>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane fade in active" >
+                                <strong>Nume: {{ hotel.nume }}</strong> <br>
+                                <strong>Catelgorie: {{ hotel.categorie}}</strong> <br>
+                                <strong>Adresa: {{ hotel.adresa }}</strong> <br>
+                                <strong>Rating: {{hotel.rating }}</strong><br>
+                                <strong>Numar camere: {{ hotel.nrCamere }}</strong><br>
+                                <strong>Pret/noapte: {{ hotel.pretNoapte }} Kč</strong> <br>
+                            </div>
+                        </div>
+                        <div class="booking-cta text-center">
+                            <h1>Fă-ți o rezervare</h1>
+                        </div>
+                        <div class="booking-form">
+                            <div class="text-danger">
+                                {{ form_errors(form) }}
+                            </div>
+                            {{ form_start(form) }}
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span class="form-label">Nume</span>
+                                    {{ form_widget(form.numeUser) }}
+                                    {{ form_errors(form.numeUser) }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span class="form-label">Numar camere</span>
+                                    {{ form_widget(form.nrCamere) }}
+                                    {{ form_errors(form.nrCamere) }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <span class="form-label">Data sosire</span>
+                                    {{ form_widget(form.dataSosire) }}
+                                    {{ form_errors(form.dataSosire) }}
+                                </div>
+
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <span class="form-label">Data plecare</span>
+                                    {{ form_widget(form.dataPlecare) }}
+                                    {{ form_errors(form.dataPlecare) }}
+                                </div>
+                            </div>
+                            <div class="col-md-12" >
+                                <div class="form-btn" >
+                                    {{ form_widget(form.rezerva) }}
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                            {% if success is defined %}
+                                <div class="bg-success">
+                                    {{ success }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block end_javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+{% endblock %}

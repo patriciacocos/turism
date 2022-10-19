@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+ {% block stylesheets%}
+     <meta charset="utf-8">
+     <title>Hoteluri</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <meta name="description" content="" />
+          {{ parent() }}
+     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet" />
+     <link href="{{ asset('css/fancybox/jquery.fancybox.css')}}" rel="stylesheet">
+     <link href="{{ asset('css/flexslider.css')}}" rel="stylesheet" />
+     <link href="{{ asset('css/style.css')}}" rel="stylesheet" />
+     <link href="={{ asset('css/style2.css') }}" rel="stylesheet"/>
+ {% endblock %}
+
+{% block body %}
+    {% include 'global/menu.html.twig' %}
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="pageTitle">Cazare</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        {% set index = 0 %}
+        {% for hotel in hotel %}
+            {% if index % 3 == 0 %}
+                <div class="row">
+            {% endif %}
+            <div class="col-md-4 text-center">
+                <div class="probootstrap-room">
+                    <br><br>
+                    <img class="img-thumbnail" src="{{ asset(hotel.images[0].getPath()) }}"  alt="" style="max-height: 250px" style="max-width: 150px">
+                    <div class="text">
+                        <strong><h3>{{ hotel.nume }}</h3></strong>
+                        <i class="fa fa-2x fa-heart js-toggle-favorite"
+                            data-id="{{ hotel.idCazare }}"
+                            data-type="cazare"
+                            style="
+                                cursor: pointer;
+                                {% if app.user and hotel.hasFavoriteForUser(app.user) %}
+                                    color: red;
+                                {% endif %}
+                        ">
+                        </i>
+
+                        <p>Incepand de la: <strong>{{ hotel.pretNoapte }}CZK/noapte</strong></p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                        </svg>
+                        <strong>{{ hotel.adresa }}</strong>
+                        <br>
+                        <div class="post-meta mb30">
+                            <ul>
+                                <span>Rating: {{ hotel.rating }}</span><br>
+                                <span>Numar camere: {{ hotel.nrCamere }}</span>
+                            </ul>
+
+                        </div>
+                        <a href="{{ path('app_hotel_reservation_page', {
+                            'hotel': hotel.idCazare
+                        }) }}" class="btn btn-default">
+                            Rezerva
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% if index % 3 == 2 %}
+                </div>
+            {% endif %}
+            {% set index = index + 1 %}
+        {% endfor %}
+        {% if (index - 1) % 3 != 2 %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+
+{% block end_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('/js/jquery.js') }}"></script>
+    <script>window.userId = '{{ app.user ? app.user.id : '' }}'</script>
+    <script src="{{ asset('/js/custom/favorite.js') }}"></script>
+{% endblock %}
+

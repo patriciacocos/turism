@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+ {% block stylesheets %}
+     {{ parent() }}
+     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet" />
+     <link href="{{ asset('css/fancybox/jquery.fancybox.css')}}" rel="stylesheet">
+     <link href="{{ asset('css/flexslider.css')}}" rel="stylesheet" />
+     <link href="{{ asset('css/style.css')}}" rel="stylesheet" />
+ {% endblock %}
+
+{% block body %}
+<div id="wrapper" class="home-page">
+    <!-- start header -->
+    {% include 'global/menu.html.twig' %}
+    <!-- end header -->
+
+    <section id="banner">
+
+        <div class="panel" id="p">
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div id="banner" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner"></div>
+
+                        <div class="item-active">
+                            <img src="{{ asset('images/monument_podul_carol_2.jpg') }}" alt="imagine Praga Cehia" style="width: 100%;height:900px;">
+                            <div class="carousel-caption">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="content">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="aligncenter"><h2 class="aligncenter">Cele Mai Placute Locații</h2> Praga a fost poreclită "orașul unei mii de spire". Pe măsură ce vă uitați la orizontul vechi de 1.100 de ani, veți fi răsplătiți cu nenumărate vederi splendide ale bisericilor frumoase și cu turnuri vechi, care se combină pentru a transforma Praga într-una din pietrele arhitecturale ale Europei.Mai jos se vor regăsii cele mai vizitate locuri din Praga.</div>
+                    <br/>
+                </div>
+            </div>
+
+            <div class="row box-section">
+                {% for monument in topLikedMonuments %}
+                <div class="col-md-4">
+                    <div class="box-content">
+                        <a href="{{ path('app_monument_reservation_page', {'monument': monument.idMonumenteIstorice}) }}">
+                            <img class="img-responsive" src="{{ asset(monument.images[0].path) }}" style="max-height: 200px; margin: 0 auto">
+                            <h3>{{ monument.nume}} <span class="price pull-right">{{ monument.pretBilet }} kzc</span></h3>
+                            <strong>{{ monument.adresa }}</strong><br>
+                            <strong>{{ monument.oraDeschidere|date('H:i:s') }}-{{ monument.oraInchidere|date('H:i:s') }}</strong>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="row box-section">
+                {% for art in topLikedArt %}
+                    <div class="col-md-4">
+                        <div class="box-content">
+                            <a href="{{ path('app_art_reservation_page', {'art': art.idArta}) }}">
+                                <img class="img-responsive" src="{{ asset(art.images[0].path) }}" style="max-height: 200px; margin: 0 auto">
+                                <h3>{{ art.nume}} <span class="price pull-right">{{ art.pretBilet }} kzc</span></h3>
+                                <strong>{{ art.adresa }}</strong><br>
+                                <strong>{{ art.oraDeschidere|date('H:i:s') }}-{{ art.oraInchidere|date('H:i:s') }}</strong>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="row box-section">
+                {% for hotel in topLikedHotels %}
+                    <div class="col-md-4">
+                        <div class="box-content">
+                            <a href="{{ path('app_hotel_reservation_page', {'hotel': hotel.idCazare}) }}">
+                                <img class="img-responsive" src="{{ asset(hotel.images[0].path) }}" style="max-height: 200px; margin: 0 auto">
+                                <h3>{{ hotel.nume}} <span class="price pull-right">{{ hotel.pretNoapte }} kzc</span></h3>
+                                <strong>{{ hotel.adresa }}</strong><br>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            <div class="row box-section">
+                {% for restaurant in topLikedRestaurants %}
+                    <div class="col-md-4">
+                        <div class="box-content">
+                                <img class="img-responsive" src="{{ asset(restaurant.images[0].path) }}" style="max-height: 200px; margin: 0 auto">
+                                <h3>{{ restaurant.nume}} <span class="price pull-right">Stil:{{ restaurant.stil }}</span></h3>
+                                <strong>{{ restaurant.adresa }}</strong><br>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            </div>
+    </section>
+</div>
+{% endblock %}

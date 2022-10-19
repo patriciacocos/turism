@@ -1,0 +1,125 @@
+ul.dropdown-menu{
+    background-color: #ADB5BD;
+    font-size: medium;
+}
+
+
+body {
+    position: relative;
+}
+
+ul.nav-pills {
+    margin-top: 1%;
+    position:fixed;
+    font-size: 20px;
+    z-index: 100;
+    background-color: #f6f6f6;
+}
+
+
+.panel-body:hover{
+    transform: translateY(-5px);
+    color: #fff;
+}
+#p4:hover{
+    background-color: black;
+}
+.panel a{
+    text-decoration: none;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover{
+    background-color: #ADB5BD;
+    color: #222222;
+}
+
+.nav-pills>li>a {
+    color: #212529;
+}
+
+div.col-sm-11 div {
+    margin-top: 1%;
+    height: auto;
+    font-size: 18px;
+}
+#section {color: #222222; background-color: #fff;}
+
+
+@media screen and (max-width: 810px) {
+    #section1, #section2, #section3, #section4 {
+        margin-left: 150px;
+    }
+}
+
+.panel-body{
+    background-color: #28282A;
+    color: #fff;
+    padding: 5%;
+}
+.row{
+    margin-top: 2%;
+}
+
+.footer{
+    background-color: #28282A;
+    color: #fff;
+}
+.footer>ul>li a, .footer>ul>li a:visited{
+    color: #ffffff;
+    text-decoration: none;
+}
+.footer>a, .footer>a:visited{
+    color: #fff;
+    text-decoration: none;
+}
+.footer>ul{
+    list-style-type: none;
+}
+
+#pan{
+    background-color: #28282A;
+}
+
+
+.panel-body>img
+{
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+button,
+input{
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-decoration: none;
+    position: relative;
+    width: 80%;
+    display: block;
+    margin: 9px auto;
+    font-size: 17px;
+    color: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(3,3,3,.1);
+    -webkit-transition: all 2s ease-in-out;
+    -moz-transition: all 2s ease-in-out;
+    -o-transition: all 2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+input:focus{
+    outline: none;
+    box-shadow: 3px 3px 10px #333;
+    background: rgba(3,3,3,.18);
+}
+button{
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-align: center;
+    padding: 4px 8px;
+    background: rgba(119, 245, 40, 0.86);
+}
+
+

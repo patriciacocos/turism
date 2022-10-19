@@ -1,0 +1,191 @@
+{% extends 'base.html.twig' %}
+
+ {% block stylesheets%}
+     <meta charset="utf-8">
+     <title>Profil</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <meta name="description" content="" />
+     {{ parent() }}
+     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet" />
+     <link href="{{ asset('css/fancybox/jquery.fancybox.css')}}" rel="stylesheet">
+     <link href="{{ asset('css/flexslider.css')}}" rel="stylesheet" />
+     <link href="{{ asset('css/style.css')}}" rel="stylesheet" />
+     <link href="={{ asset('css/main.css') }}" rel="stylesheet"/>
+ {% endblock %}
+
+{% block body %}
+    {% include 'global/menu.html.twig' %}
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Profil utilizator <small>functii importane</small></h1>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-nav">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <a href="#one" aria-controls="one" role="tab" data-toggle="tab">Favorite</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#two" aria-controls="two" role="tab" data-toggle="tab">Rezervari obiective</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#three" aria-controls="three" role="tab" data-toggle="tab">Rezervari cazare</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="one">
+                        {% for favorite in favorites %}
+                            {% if favorite.idMonumenteIstorice %}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ol class="breadcrumb">
+                                            <li>Monument istoric</li>
+                                            <li>
+                                                <a
+                                                    href="{{ path('app_monument_reservation_page', {
+                                                        'monument': favorite.idMonumenteIstorice.idMonumenteIstorice}
+                                                    ) }}"
+                                                >
+                                                    Rezerva
+                                                </a>
+                                            </li>
+                                            <li>{{ favorite.idMonumenteIstorice.categorie }}</li>
+                                            <li class="active">{{ favorite.idMonumenteIstorice.nume }}</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if favorite.idArta %}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ol class="breadcrumb">
+                                            <li>Arta</li>
+                                            <li>
+                                                <a
+                                                    href="{{ path('app_art_reservation_page', {
+                                                        'art': favorite.idArta.idArta}
+                                                    ) }}"
+                                                >
+                                                    Rezerva
+                                                </a>
+                                            </li>
+                                            <li>{{ favorite.idArta.categorie }}</li>
+                                            <li class="active">{{ favorite.idArta.nume }}</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if favorite.idCazare %}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ol class="breadcrumb">
+                                            <li>Cazare</li>
+                                            <li>{{ favorite.idCazare.categorie }}</li>
+                                            <li class="active">{{ favorite.idCazare.nume }}</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if favorite.idMancareBautura %}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ol class="breadcrumb">
+                                            <li>Mancare si bautura</li>
+                                            <li>{{ favorite.idMancareBautura.categorie }}</li>
+                                            <li class="active">{{ favorite.idMancareBautura.nume }}</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="two">
+                        <ol class="breadcrumb">
+                            <li>      </li>
+                            <li>Categorie</li>
+                            <li>Nume</li>
+                            <li>Ora rezervarii</li>
+                            <li>Numar locuri</li>
+                            <li>Adresa</li>
+                        </ol>
+                        {% for reservation in reservations %}
+                        {% if reservation.idArta %}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <ol class="breadcrumb">
+                                        <li>Arta</li>
+                                        <li>{{ reservation.idArta.categorie }}</li>
+                                        <li class="active">{{ reservation.idArta.nume }}</li>
+                                        <li class="active">{{ reservation.oraRezervarii | date('H:i:s') }}</li>
+                                        <li class="active">{{ reservation.nrLocuri }}</li>
+                                        <li class="active">{{ reservation.idArta.adresa }}</li>
+
+
+                                    </ol>
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                            {% if reservation.idMonument %}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ol class="breadcrumb">
+                                            <li>Monument istoric</li>
+                                            <li>{{ reservation.idMonument.categorie }}</li>
+                                            <li class="active">{{ reservation.idMonument.nume }}</li>
+                                            <li class="active">{{ reservation.oraRezervarii | date('H:i:s') }}</li>
+                                            <li class="active">{{ reservation.nrLocuri }}</li>
+                                            <li class="active">{{ reservation.idMonument.adresa }}</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="three">
+                        <ol class="breadcrumb">
+                            <li>Categorie</li>
+                            <li>Nume</li>
+                            <li>Numar camere</li>
+                            <li>Data sosire</li>
+                            <li>Data plecare</li>
+                        </ol>
+                        {% for reservation in reservationsHotels %}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <ol class="breadcrumb">
+                                        <li>{{ reservation.idCazare.categorie }}</li>
+                                        <li class="active">{{ reservation.idCazare.nume }}</li>
+                                        <li class="active">{{ reservation.nrCamere }}</li>
+                                        <li class="active">{{ reservation.dataSosire |date('Y-m-d')}}</li>
+                                        <li class="active">{{ reservation.dataPlecare |date('Y-m-d')}}</li>
+
+
+                                    </ol>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block end_javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+{% endblock %}
